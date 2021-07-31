@@ -13,6 +13,9 @@ import {
   User_Info_Success,
   User_Info_Fails,
   User_Logout,
+  User_Update_Request,
+  User_Update_Success,
+  User_Update_Fails,
 } from "../Constants/UserConstants";
 
 export const Logout = () => async (dispatch) => {
@@ -38,13 +41,11 @@ export const UserRegisterAction =
       if (res) {
         localStorage.setItem("userLog", true);
       }
-      console.log(res);
       dispatch({
         type: User_Register_Success,
         payload: res,
       });
     } catch (error) {
-      console.log(error.response);
       dispatch({
         type: User_Register_Fails,
         payload: error.response.data.msg,
@@ -60,13 +61,11 @@ export const UserLoginAction = (email, password) => async (dispatch) => {
     if (res) {
       localStorage.setItem("userLog", true);
     }
-    console.log(res);
     dispatch({
       type: User_Login_Success,
       payload: res,
     });
   } catch (error) {
-    console.log(error.response);
     dispatch({
       type: User_Login_Fails,
       payload: error.response.data.msg,
@@ -81,12 +80,13 @@ export const UserTokenAction = () => async (dispatch) => {
     });
     const res = await axios.get(`/token`);
     const token = res.data.accesstoken;
+    localStorage.setItem("token", token);
     dispatch({
       type: User_Token_Success,
       payload: token,
     });
   } catch (error) {
-    console.log(error.response);
+
     dispatch({
       type: User_Token_Fails,
       payload: error.response.data.msg,
@@ -110,10 +110,44 @@ export const UserInfoAction = (token) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error.response);
     dispatch({
       type: User_Info_Fails,
       payload: error.response.data.msg,
     });
   }
 };
+
+export const UserUpdateAction =
+  (name, email, password, confirmpassword, userToken) => async (dispatch) => {
+    try {
+      dispatch({
+        type: User_Update_Request,
+      });
+      const res = await axios.patch(
+        `/updateUser`,
+        {
+          name,
+          email,
+          password,
+          confirmpassword,
+        },
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      );
+      if (res) {
+        localStorage.setItem("userLog", true);
+      }
+      dispatch({
+        type: User_Update_Success,
+        payload: res.data.msg,
+      });
+    } catch (error) {
+      dispatch({
+        type: User_Update_Fails,
+        payload: error.response.data.msg,
+      });
+    }
+  };

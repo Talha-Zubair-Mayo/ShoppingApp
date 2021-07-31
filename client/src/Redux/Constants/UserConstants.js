@@ -14,3 +14,7 @@ export const User_Info_Fails = "User_Info_Fails";
 export const User_Register_Request = "User_Register_Request";
 export const User_Register_Success = "User_Register_Success";
 export const User_Register_Fails = "User_Register_Fails";
+
+export const User_Update_Request = "User_Update_Request";
+export const User_Update_Success = "User_Update_Success";
+export const User_Update_Fails = "User_Update_Fails";

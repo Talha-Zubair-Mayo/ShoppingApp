@@ -1,34 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Products from "../Components/Products/Products";
-import { ProductListaction } from "../Redux/Actions/ProductActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Loading from "../Components/Loading/Loading";
-import { UserTokenAction, UserInfoAction } from "../Redux/Actions/UserActions";
 
 const Home = () => {
   const productListt = useSelector((state) => state.productList);
   const { loading, error, products } = productListt;
-  const dispatch = useDispatch();
 
-  const logged = localStorage.getItem("userLog");
-  useEffect(() => {
-    const fetchProducts = async () => {
-      await dispatch(ProductListaction());
-      if (logged) {
-        await dispatch(UserTokenAction());
-      }
-    };
-    fetchProducts();
-  }, []);
-  const userTokeno = useSelector((state) => state.userToken);
-  const { userToken } = userTokeno;
-  const token = localStorage.getItem("token");
-
-  if (userToken) {
-    dispatch(UserInfoAction(userToken));
-  }
-  return (
+    return (
     <>
       {loading ? (
         <Loading />

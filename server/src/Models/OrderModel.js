@@ -9,7 +9,7 @@ const orderSchema = mongoose.Schema(
     },
     orderItems: [
       {
-        name: {
+        title: {
           type: String,
           required: true,
         },
@@ -41,7 +41,7 @@ const orderSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-      postalCode: {
+      postalcode: {
         type: String,
         required: true,
       },
@@ -52,7 +52,7 @@ const orderSchema = mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      required: true,
+      // required: true,
     },
     paymentResult: {
       id: {
@@ -103,6 +103,6 @@ const orderSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Orders = mongoose.model("Orders", orderSchema);
+const Order = mongoose.model("Order", orderSchema);
 
-module.exports = Orders;
+module.exports = Order;

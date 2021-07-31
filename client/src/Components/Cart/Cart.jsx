@@ -33,7 +33,7 @@ function Cart() {
    await dispatch(removeFromCart(id));
   };
   const checkout = () => {
-    history.push("/login?redirect=shipping");
+    history.push("/ShippingAddress");
   };
   return (
     <>

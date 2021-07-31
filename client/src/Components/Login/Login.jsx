@@ -63,7 +63,6 @@ function Login() {
                         <div className="form-group first">
                           <label htmlFor="Email">Email</label>
                           <input
-                            type="text"
                             className="form-control"
                             type="email"
                             name="email"

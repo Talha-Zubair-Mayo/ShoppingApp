@@ -10,7 +10,7 @@ const ProductCntrl = {
         res.status(404).json({ message: "Products Not Found" });
       }
     } catch (error) {
-      res.status(500).json({ message: "Internal server Error" });
+      res.status(500).json({ msg: error.message });
     }
   },
   getProduct: async (req, res) => {

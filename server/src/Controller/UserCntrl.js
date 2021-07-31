@@ -121,7 +121,42 @@ const UserCntrl = {
       res.status(500).json({ message: "Internal server Error" });
     }
   },
+  updateUser: async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      if (!user) return res.status(400).json({ msg: "User does not exist." });
+      const pass = req.body.password;
+      // Password length
+      if (pass.length < 6) {
+        return res
+          .status(422)
+          .json({ msg: "Password Must Be Greater Than 6 " });
+      }
+      const data = req.body;
+      if (pass) {
+        const passwordHash = await bcrypt.hash(pass, 12);
+        const newData = { ...data, password: passwordHash };
+        const UpdatedUser = await User.findByIdAndUpdate(
+          { _id: req.user._id },
+          newData
+        );
+
+        return res.json({ msg: "Profile Updated  with pass Successfully" });
+      } else {
+        const UpdatedUser = await User.findByIdAndUpdate(
+          { _id: req.user._id },
+          req.body,
+          { new: true }
+        );
+
+        return res.json({ msg: "Profile Updated  Successfully" });
+      }
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };
+
 const CreateAccessToken = (user) => {
   return jwt.sign(user, process.env.AccessTokenKey, {
     expiresIn: "1d",

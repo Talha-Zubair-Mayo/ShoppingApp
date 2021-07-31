@@ -17,8 +17,13 @@ app.use(cookieparser());
 //Routes
 const product = require("./routes/ProductRoute");
 const user = require("./routes/UserRoute");
+const orderrr = require("./routes/OrderRoutes");
 app.use("/api/", product);
 app.use("/api", user);
+app.use("/api", orderrr);
+app.get("/api/config/paypal", (req, res) => {
+  res.send(process.env.PayPal_Client_Id);
+});
 
 app.listen(process.env.PORT || port, () => {
   console.log(
