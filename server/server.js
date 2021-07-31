@@ -22,10 +22,6 @@ app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PayPal_Client_Id);
 });
 
-app.get("/", (req, res) => {
-  res.send("hiiiii");
-});
-
 if (process.env.NODE_ENV == "production") {
   const path = require("path");
 
@@ -34,7 +30,6 @@ if (process.env.NODE_ENV == "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-console.log(__dirname, "client", "build");
 app.listen(process.env.PORT || port, () => {
   console.log(
     `Server Running in ${process.env.NODE_ENV} Mode on Port ${port}`.inverse

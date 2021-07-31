@@ -20,7 +20,7 @@ import {
 
 export const Logout = () => async (dispatch) => {
   localStorage.clear();
-  await axios.get(`/logout`);
+  await axios.get(`/api/logout`);
   dispatch({
     type: User_Logout,
   });
@@ -32,7 +32,7 @@ export const UserRegisterAction =
       dispatch({
         type: User_Register_Request,
       });
-      const res = await axios.post(`/register`, {
+      const res = await axios.post(`/api/register`, {
         name,
         email,
         password,
@@ -57,7 +57,7 @@ export const UserLoginAction = (email, password) => async (dispatch) => {
     dispatch({
       type: User_Login_Request,
     });
-    const res = await axios.post(`/login`, { email, password });
+    const res = await axios.post(`/api/login`, { email, password });
     if (res) {
       localStorage.setItem("userLog", true);
     }
@@ -78,7 +78,7 @@ export const UserTokenAction = () => async (dispatch) => {
     dispatch({
       type: User_Token_Request,
     });
-    const res = await axios.get(`/token`);
+    const res = await axios.get(`/api/token`);
     const token = res.data.accesstoken;
     localStorage.setItem("token", token);
     dispatch({
@@ -99,7 +99,7 @@ export const UserInfoAction = (token) => async (dispatch) => {
     dispatch({
       type: User_Info_Request,
     });
-    const { data } = await axios.get(`/userProfile`, {
+    const { data } = await axios.get(`/api/userProfile`, {
       headers: {
         Authorization: token,
       },

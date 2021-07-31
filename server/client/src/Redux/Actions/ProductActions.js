@@ -14,7 +14,7 @@ export const ProductListaction = () => async (dispatch) => {
       type: Product_List_request,
     });
 
-    const { data } = await axios.get(`/products`);
+    const { data } = await axios.get(`/api/products`);
 
     dispatch({
       type: Product_List_Success,
@@ -34,7 +34,7 @@ export const ProductDetailsAction = (id) => async (dispatch) => {  try {
     dispatch({
       type: Product_Details_request,
     });
-    const { data } =  await axios.get(`/products/${id}`);
+    const { data } =  await axios.get(`/api/products/${id}`);
     dispatch({
       type: Product_Details_Success,
       payload: data,

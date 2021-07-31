@@ -26,7 +26,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
         Authorization: `${token}`,
       },
     };
-    const { data } = await axios.post("/order", order, config);
+    const { data } = await axios.post(`/api/order`, order, config);
     dispatch({ type: Order_Create_Success, payload: data });
   } catch (error) {
     dispatch({
@@ -52,7 +52,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
         Authorization: `${token}`,
       },
     };
-    const { data } = await axios.get(`/order/${id}`, config);
+    const { data } = await axios.get(`/api/order/${id}`, config);
     dispatch({ type: Order_Details_Success, payload: data });
   } catch (error) {
     dispatch({
@@ -79,7 +79,7 @@ export const payOrder = (orderId, paymentResult) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `/order/${orderId}/pay`,
+      `/api/order/${orderId}/pay`,
       paymentResult,
       config
     );
@@ -109,7 +109,7 @@ export const MyOrdersAction = () => async (dispatch) => {
         Authorization: `${token}`,
       },
     };
-    const { data } = await axios.get(`/myorders`, config);
+    const { data } = await axios.get(`/api/myorders`, config);
 
     dispatch({ type: Order_LIST_Success, payload: data });
   } catch (error) {
